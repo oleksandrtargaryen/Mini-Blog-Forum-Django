@@ -1,0 +1,20 @@
+<h1>{{ post.title }}</h1>
+<p>{{ post.body }}</p>
+<p>by {{ post.author.username }}</p>
+
+<h2>Comments</h2>
+<ul>
+{% for comment in post.comments.all %}
+  <li>{{ comment.author.username }}: {{ comment.body }}</li>
+{% empty %}
+  <li>No comments yet</li>
+{% endfor %}
+</ul>
+
+<h3>Add comment</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Add</button>
+</form>
+<a href="{% url 'post_list' %}">Back</a>
